@@ -26,19 +26,20 @@ interface SearchResult { query: string; content: string; timestamp: string; }
 const fadeInUp: Variants = { initial: { opacity: 0, y: 30 }, animate: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } } };
 const staggerContainer: Variants = { initial: {}, animate: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } } };
 
-// AionLabs API
-const AIONLABS_API_KEY = import.meta.env.VITE_AIONLABS_API_KEY || '';
+// Supabase Edge Function proxy — API key stays secure server-side, never in frontend
+const SUPABASE_EDGE_URL = 'https://ngfkdzzxjzunovbdcnnx.supabase.co/functions/v1/aionlabs-proxy';
 
 const generateWithAion = async (prompt: string): Promise<string> => {
   try {
-    const response = await fetch('https://api.aionlabs.ai/v1/chat/completions', {
+    const response = await fetch(SUPABASE_EDGE_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${AIONLABS_API_KEY}` },
-      body: JSON.stringify({ model: 'aion-labs/aion-2.0', messages: [{ role: 'user', content: prompt }], temperature: 0.7, max_tokens: 2048 }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, temperature: 0.7, max_tokens: 2048 }),
     });
     if (!response.ok) throw new Error(`API Error: ${response.status}`);
     const data = await response.json();
-    return data.choices?.[0]?.message?.content || 'No response from AI';
+    if (data.error) throw new Error(data.error);
+    return data.content || 'No response from AI';
   } catch (error) { console.error('AionLabs API Error:', error); throw error; }
 };
 
@@ -311,7 +312,7 @@ const Dashboard = () => {
     trackEvent('view', cat);
   }, [activeTab]);
   const loadArticles = async (category: string) => {
-    if (!AIONLABS_API_KEY) { setError('Add VITE_AIONLABS_API_KEY to your .env file'); return; }
+    if (!SUPABASE_EDGE_URL) { setError('Backend not configured'); return; }
     setLoading(true); setError('');
     try { const data = await fetchCategoryData(category); setArticles(data); trackEvent('article_load', category); }
     catch { setError('Failed to load data. Check your API key.'); }
@@ -497,14 +498,14 @@ const CategoryDetail = ({ category, onBack }: { category: Category; onBack: () =
     loadCategoryArticles();
   }, [category]);
   const loadCategoryArticles = async () => {
-    if (!AIONLABS_API_KEY) { setError('Add VITE_AIONLABS_API_KEY to your .env file'); return; }
+    if (!SUPABASE_EDGE_URL) { setError('Backend not configured'); return; }
     setLoading(true); setError('');
     try { setArticles(await fetchCategoryData(category.id)); trackEvent('article_load', category.id); }
     catch { setError('Failed to load articles. Check your API key.'); }
     finally { setLoading(false); }
   };
   const handleSearch = async () => {
-    if (!searchQuery.trim() || !AIONLABS_API_KEY) return;
+    if (!searchQuery.trim()) return;
     setIsSearching(true); setError('');
     try {
       const result = await searchWithAI(searchQuery, category.name);

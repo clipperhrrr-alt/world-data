@@ -1,6 +1,6 @@
 # World Data — Global Intelligence
 
-AI-powered platform for real-time trending info across Gaming, AI, Tech, APIs, Global Affairs & Breaking News. Powered by AionLabs AI.
+AI-powered platform for real-time trending info across Gaming, AI, Tech, APIs, Global Affairs & Breaking News. Powered by AionLabs AI via Supabase Edge Function (API key stays server-side, never exposed to frontend).
 
 ## Features
 
@@ -9,27 +9,38 @@ AI-powered platform for real-time trending info across Gaming, AI, Tech, APIs, G
 - **AI Search** — ask any question, get AI-powered answers with source URLs
 - **Web Pics & Info URLs** — every article includes Google Images & Google Search links (no downloads)
 - **Bookmark articles** — save to localStorage, view in "Saved" tab
+- **Analytics Dashboard** — stat tiles, category views chart, search analytics, activity feed
 - **Dark/Light theme** — persists across sessions
-- **Trending tab** — viral TikTok/Instagram/YouTube/X trends, even small but trending stories
+- **Secure backend** — AionLabs API key stored in Supabase Edge Function, never in frontend
+
+## Architecture
+
+```
+Frontend (React) → Supabase Edge Function → AionLabs API
+                   (aionlabs-proxy)         (api.aionlabs.ai)
+                   API key stored here      Key never exposed
+```
+
+No API keys in frontend code. No `.env` file needed for the API key.
 
 ## Setup
 
 ```bash
 npm install
-cp .env.example .env  # Add your AionLabs API key
 npm run dev
 ```
 
-## API
+## Backend
 
-Uses [AionLabs AI](https://www.aionlabs.ai/) — OpenAI-compatible API.
-- Model: `aion-labs/aion-2.0`
-- Endpoint: `POST https://api.aionlabs.ai/v1/chat/completions`
-- Get your key at https://www.aionlabs.ai/
+The Supabase Edge Function (`aionlabs-proxy`) handles:
+- AionLabs API authentication (key stored as Supabase secret)
+- CORS headers for frontend access
+- Request proxying with configurable temperature and max_tokens
 
 ## Tech
 
 - React 18 + TypeScript + Vite
 - Framer Motion (animations)
 - Lucide React (icons)
-- localStorage (bookmarks + theme, no backend needed)
+- Supabase Edge Functions (backend proxy)
+- localStorage (bookmarks + theme + analytics, no database needed)
