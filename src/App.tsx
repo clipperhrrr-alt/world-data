@@ -528,7 +528,7 @@ const CategoryDetail = ({ category, onBack }: { category: Category; onBack: () =
         <button onClick={onBack} className={`flex items-center gap-2 mb-6 transition-colors ${theme === 'dark' ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'}`}><ChevronLeft className="w-5 h-5" /> Back to Categories</button>
         <div className="flex flex-col md:flex-row md:items-center gap-6 mb-10">
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center"><category.icon className="w-8 h-8 text-white" /></div>
-          <div><h1 className={`text-4xl font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{category.name}</h1><p className={theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{category.description}</p></div>
+          <div><h1 className={`text-4xl font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{category.name}</h1><p className={`${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'}`}>{category.description}</p></div>
         </div>
         {error && (<div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center gap-3 text-red-400"><AlertCircle className="w-5 h-5" /> {error}</div>)}
         <div className={`relative max-w-3xl mb-10 p-2 rounded-2xl flex items-center gap-2 ${theme === 'dark' ? 'bg-slate-800 border border-slate-700' : 'bg-white border border-slate-200'}`}>
