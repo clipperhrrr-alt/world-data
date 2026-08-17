@@ -346,6 +346,29 @@ export default function App() {
             </>
           )}
           <Footer />
+
+          {/* Hidden SEO Content for Google Crawling */}
+          <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}>
+            <h1>Gaming Futur — Free Fire AI Assistant</h1>
+            <h2>Free Fire Tools</h2>
+            <p>Gaming Futur is Pakistan's first AI-powered Free Fire assistant. All tools are 100% free with no signup required. Our AI-powered Free Fire tools include:</p>
+            <ul>
+              <li><strong>Free Fire Loadout Maker</strong> — Get the best weapon loadouts, attachments, and item builds for any Free Fire mode including Clash Squad, Battle Royale, Lone Wolf, and CS Ranked.</li>
+              <li><strong>Garena Ban Appeal Writer</strong> — Write professional ban appeals to Garena for suspended or banned Free Fire accounts. Improve your chances of account recovery with AI-drafted appeals.</li>
+              <li><strong>Free Fire Hacker Analyzer</strong> — Analyze suspicious gameplay, detect hacking patterns, and learn how to report hackers to Garena properly.</li>
+              <li><strong>Character Combination Tool</strong> — Find the best Free Fire character skill combos for your playstyle. Optimize active and passive skills for maximum performance.</li>
+              <li><strong>Bug Fix Helper</strong> — Get step-by-step solutions for Free Fire bugs, crashes, lag, black screen, login errors, and other technical issues.</li>
+              <li><strong>In-Game Strategy Generator</strong> — Tactical strategies for zone rotations, last zone fights, rank push, defending bombsites, and solo vs squad situations in Free Fire.</li>
+              <li><strong>Diamond Estimate Calculator</strong> — Calculate diamond costs for Elite Pass, character bundles, gun skins, pets, and event rewards in Free Fire. Get real money equivalents in USD and PKR.</li>
+            </ul>
+            <h2>Why Gaming Futur?</h2>
+            <p>Gaming Futur is the only Free Fire assistant built specifically for the Pakistan Free Fire community. Whether your ID got banned, you need better loadouts, you want to catch hackers, or you want to save diamonds — Gaming Futur has you covered. Every tool is powered by AI and completely free. No account needed, no paywall, no subscription. Just open and use.</p>
+            <h2>Free Fire Community Pakistan</h2>
+            <p>We're building the largest Free Fire community tool in Pakistan. From Lahore to Karachi, from Islamabad to Peshawar — Gaming Futur helps every Pakistani Free Fire player play smarter and win more. Our tools work on any device — mobile, tablet, or desktop. No app download needed — it's all on the web.</p>
+            <h2>Popular Free Fire Keywords</h2>
+            <p>Free Fire AI assistant, FF loadout maker, Garena ban appeal writer, Free Fire hacker detector, FF character combo builder, Free Fire diamond calculator, FF strategy guide, Free Fire bug fix, Pakistan Free Fire community, Garena Free Fire helper, FF AI tools, Free Fire companion app, Free Fire loadout optimizer, Clash Squad loadout, Battle Royale strategy, Free Fire rank push tips.</p>
+          </div>
+
           <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-4">
             <AdBannerLeft />
           </div>

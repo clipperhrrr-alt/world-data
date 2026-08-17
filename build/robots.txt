@@ -1,0 +1,14 @@
+# robots.txt for Gaming Futur — Free Fire AI Assistant
+User-agent: *
+Allow: /
+
+# Block crawling of build assets (not useful for SEO)
+Disallow: /build/
+Disallow: /src/
+
+# Allow Googlebot full access
+User-agent: Googlebot
+Allow: /
+
+# Sitemap location
+Sitemap: https://world-data.vercel.app/sitemap.xml
