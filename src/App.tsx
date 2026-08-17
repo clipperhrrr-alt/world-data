@@ -31,6 +31,18 @@ const callAI = async (prompt: string): Promise<string> => {
 
 // Tool definitions
 interface Tool { id: string; name: string; icon: React.ElementType; description: string; placeholder: string; promptTemplate: (input: string) => string; }
+
+// Per-tool SEO metadata (dynamic title + meta description for each tool page)
+const toolSEO: Record<string, { title: string; description: string }> = {
+  appeal: { title: 'Free Fire Ban Appeal Writer — Garena Appeal Generator | Gaming Futur', description: 'Write professional Garena ban appeal letters for Free Fire. AI-powered ban appeal generator — banned account, suspension, lost items. Free, no signup. Gaming Futur.' },
+  bugfix: { title: 'Free Fire Bug Fix Helper — Fix Crashes, Lag & Errors | Gaming Futur', description: 'Get step-by-step solutions for Free Fire bugs, crashes, lag, black screen, login errors. AI-powered bug fix helper. Free, no signup. Gaming Futur.' },
+  loadout: { title: 'Free Fire Loadout Maker — AI Weapon & Item Optimizer | Gaming Futur', description: 'AI-powered Free Fire loadout maker. Get optimal weapons, attachments, characters, pets for BR, CS, Clash Squad. Best loadout generator. Free. Gaming Futur.' },
+  combo: { title: 'Free Fire Character Combo Builder — Best Skill Combinations | Gaming Futur', description: 'Find the best Free Fire character skill combinations for your playstyle. AI-powered character combo builder with synergy explanations. Free. Gaming Futur.' },
+  hacker: { title: 'Free Fire Hacker Analyzer — Detect & Report Hackers | Gaming Futur', description: 'Analyze suspicious Free Fire gameplay and detect hackers. AI-powered hacker analyzer — headshot accuracy, wall-bang, auto-aim detection. Free. Gaming Futur.' },
+  strategy: { title: 'Free Fire Zone Strategy Generator — Tactical Rotation Guide | Gaming Futur', description: 'Get AI-powered Free Fire zone rotation strategies and tactical guides. Last zone, 1v3, rank push, bombsite defense. Free strategy generator. Gaming Futur.' },
+  diamond: { title: 'Free Fire Diamond Calculator — Cost Estimator in USD & PKR | Gaming Futur', description: 'Calculate Free Fire diamond costs for elite pass, bundles, gun skins, pets, events. Diamond price calculator with USD and PKR equivalents. Free. Gaming Futur.' },
+};
+
 const tools: Tool[] = [
   { id: 'appeal', name: 'Garena Appeal', icon: Shield, description: 'Write professional appeals to Garena for account bans, suspensions, or issues', placeholder: 'Describe your issue: account banned, lost items, payment problem, etc. Include your player ID if possible.', promptTemplate: (i) => `You are a professional gaming appeal writer for Garena Free Fire. Write a formal, respectful appeal email to Garena support about: ${i}. Make it professional, concise, and persuasive. Include a subject line and proper email format. Keep it under 300 words.` },
   { id: 'bugfix', name: 'Bug Fix Help', icon: Bug, description: 'Get help with Free Fire bugs, crashes, lag, and technical issues', placeholder: 'Describe the bug: black screen, login error, game crash, lag, graphics glitch, etc.', promptTemplate: (i) => `You are a Free Fire technical support expert. The user reports: ${i}. Provide step-by-step troubleshooting solutions for this Free Fire bug. Include device-specific tips if mentioned. Format with clear steps and bullet points. Keep it practical and actionable.` },
@@ -190,6 +202,20 @@ const ToolDetail = ({ tool, onBack }: { tool: Tool; onBack: () => void }) => {
   const [error, setError] = useState('');
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    const seo = toolSEO[tool.id];
+    if (seo) {
+      document.title = seo.title;
+      const meta = document.querySelector('meta[name="description"]');
+      if (meta) meta.setAttribute('content', seo.description);
+    }
+    return () => {
+      document.title = 'Gaming Futur — Free Fire AI Assistant | 7 Free Tools (Ban Appeal, Loadout, Hacker Analyzer)';
+      const meta = document.querySelector('meta[name="description"]');
+      if (meta) meta.setAttribute('content', 'Gaming Futur is the #1 AI-powered Free Fire assistant. 7 FREE tools: Garena ban appeal writer, loadout maker, hacker analyzer, character combo builder, zone strategy, bug fix helper & diamond calculator. No signup, 100% free.');
+    };
+  }, [tool.id]);
 
   const handleSubmit = async () => {
     if (!input.trim()) return;
