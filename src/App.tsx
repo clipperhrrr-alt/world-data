@@ -304,7 +304,7 @@ const AdBannerLeft = () => {
   }, []);
   const { theme } = useTheme();
   return (
-    <div className={`hidden lg:block fixed left-4 top-1/2 -translate-y-1/2 z-40 p-2 rounded-xl ${theme === 'dark' ? 'bg-slate-800/90 border border-slate-700' : 'bg-white/90 border border-slate-200'} backdrop-blur-sm`} style={{ width: '738px' }}>
+    <div className={`flex flex-col items-center p-2 rounded-xl mx-auto mt-4 ${theme === 'dark' ? 'bg-slate-800/60 border border-slate-700' : 'bg-white/60 border border-slate-200'}`} style={{ maxWidth: '728px' }}>
       <div ref={adRef} className="flex justify-center" style={{ minHeight: '90px', minWidth: '728px' }} />
       <span className={`block text-center text-[10px] mt-1 ${theme === 'dark' ? 'text-slate-600' : 'text-slate-400'}`}>Advertisement</span>
     </div>
@@ -338,7 +338,6 @@ export default function App() {
         <div className={`min-h-screen ${theme === 'dark' ? 'bg-slate-900' : 'bg-slate-50'}`}>
           <Navbar onGetStarted={() => scrollTo('tools')} />
           <AdBanner />
-          <AdBannerLeft />
           {selectedTool ? <ToolDetail tool={selectedTool} onBack={() => setSelectedTool(null)} /> : (
             <>
               <Hero onGetStarted={() => scrollTo('tools')} />
@@ -347,6 +346,9 @@ export default function App() {
             </>
           )}
           <Footer />
+          <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-4">
+            <AdBannerLeft />
+          </div>
         </div>
       </div>
     </ThemeContext.Provider>
