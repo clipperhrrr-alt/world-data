@@ -1,4 +1,4 @@
-import React, { useState, useRef, createContext, useContext } from 'react';
+import React, { useState, useRef, useEffect, createContext, useContext } from 'react';
 import { motion, useScroll, useTransform, useInView, AnimatePresence, Variants } from 'framer-motion';
 import {
   Menu, X, ArrowRight, Sun, Moon, Send, Loader2, AlertCircle,
@@ -259,6 +259,32 @@ const About = () => {
 };
 
 // Footer
+
+// Adsterra Side Banner Ad
+const AdBanner = () => {
+  const adRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!adRef.current) return;
+    adRef.current.innerHTML = '';
+    const atOptions = { key: '9209657e6f2eec939e0b302819ffed9d', format: 'iframe', height: 250, width: 300, params: {} };
+    const s1 = document.createElement('script');
+    s1.type = 'text/javascript';
+    s1.text = `atOptions = ${JSON.stringify(atOptions)};`;
+    const s2 = document.createElement('script');
+    s2.type = 'text/javascript';
+    s2.src = `https://www.highperformanceformat.com/${atOptions.key}/invoke.js`;
+    adRef.current.appendChild(s1);
+    adRef.current.appendChild(s2);
+  }, []);
+  const { theme } = useTheme();
+  return (
+    <div className={`hidden lg:block fixed right-4 top-1/2 -translate-y-1/2 z-40 p-2 rounded-xl ${theme === 'dark' ? 'bg-slate-800/90 border border-slate-700' : 'bg-white/90 border border-slate-200'} backdrop-blur-sm`} style={{ width: '310px' }}>
+      <div ref={adRef} className="flex justify-center" style={{ minHeight: '250px', minWidth: '300px' }} />
+      <span className={`block text-center text-[10px] mt-1 ${theme === 'dark' ? 'text-slate-600' : 'text-slate-400'}`}>Advertisement</span>
+    </div>
+  );
+};
+
 const Footer = () => {
   const { theme } = useTheme();
   return (
@@ -285,6 +311,7 @@ export default function App() {
       <div className={theme === 'dark' ? 'dark' : ''}>
         <div className={`min-h-screen ${theme === 'dark' ? 'bg-slate-900' : 'bg-slate-50'}`}>
           <Navbar onGetStarted={() => scrollTo('tools')} />
+          <AdBanner />
           {selectedTool ? <ToolDetail tool={selectedTool} onBack={() => setSelectedTool(null)} /> : (
             <>
               <Hero onGetStarted={() => scrollTo('tools')} />
