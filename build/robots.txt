@@ -21,4 +21,4 @@ User-agent: Googlebot-Image
 Allow: /
 
 # Sitemap location
-Sitemap: https://clipperhrrr-alt.github.io/world-data/sitemap.xml
+Sitemap: https://world-data-theta.vercel.app/sitemap.xml
