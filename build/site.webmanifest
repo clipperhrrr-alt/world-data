@@ -1,0 +1,21 @@
+{
+  "name": "Gaming Futur — Free Fire AI Assistant",
+  "short_name": "Gaming Futur",
+  "description": "Pakistan's first AI-powered Free Fire assistant. 7 free tools: loadout maker, ban appeal writer, hacker analyzer & more.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0c29",
+  "theme_color": "#0f0c29",
+  "icons": [
+    {
+      "src": "https://media.base44.com/images/public/6a7f24f2891dd3b51a30e2ff/c61c7b2f0_generated_image.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://media.base44.com/images/public/6a7f24f2891dd3b51a30e2ff/c61c7b2f0_generated_image.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
