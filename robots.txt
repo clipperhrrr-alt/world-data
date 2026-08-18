@@ -1,0 +1,24 @@
+# robots.txt for Gaming Futur — Free Fire AI Assistant
+User-agent: *
+Allow: /
+
+# Block crawling of build assets
+Disallow: /build/
+Disallow: /src/
+Disallow: /static/js/
+Disallow: /static/css/
+
+# Allow Googlebot full access
+User-agent: Googlebot
+Allow: /
+
+# Allow Bingbot full access
+User-agent: Bingbot
+Allow: /
+
+# Allow mobile crawlers
+User-agent: Googlebot-Image
+Allow: /
+
+# Sitemap location
+Sitemap: https://clipperhrrr-alt.github.io/world-data/sitemap.xml
